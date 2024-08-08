@@ -33,7 +33,7 @@ def login():
     username = entry_username.get()
     password = entry_password.get()
 
-    if username == 'vinicius' and password == '142536':
+    if username == 'v' and password == '1':
         root.withdraw()
         create_main_interface()
     else:
@@ -147,47 +147,6 @@ def novo_cadastro(tab2):
     label_data.grid(row=0, column=0, padx=5, pady=5, sticky="w")
 
 
-def criar_ficha_treino(tab):
-    exercicios = {
-        "COXAS E GLÚTEOS": [
-            ("AGACHAMENTO LIVRE", ""), ("LEG PRESS", ""), ("CADEIRA EXTENSORA", ""), ("CADEIRA FLEXORA", ""),
-            ("ADUÇÃO", ""), ("ABDÇÃO", "")
-        ],
-        "BÍCEPS": [
-            ("ROSCA DIRETA", ""), ("ROSCA ALTERNADA", ""), ("ROSCA SCOTT", ""), ("ROSCA MARTELO", "")
-        ],
-        "OMBROS": [
-            ("DESENVOLVIMENTO", ""), ("ELEVAÇÃO FRONTAL", ""), ("ELEVAÇÃO LATERAL", ""), ("ENCOLHIMENTO", "")
-        ],
-        "PANTURRILHA": [
-            ("ELEVAÇÃO DE PANTURRILHA EM PÉ", ""), ("ELEVAÇÃO DE PANTURRILHA SENTADO", "")
-        ],
-        "ANTEBRAÇO": [
-            ("ROSCA INVERSA", ""), ("ROSCA PUNHO", "")
-        ],
-        "TRAPÉZIO": [("ENCOLHIMENTO", "")]
-    }
-
-    row_start = 20
-    col = 0
-
-    for grupo_muscular, lista_exercicios in exercicios.items():
-        lf = ttk.LabelFrame(tab, text=grupo_muscular)
-        lf.grid(row=row_start, column=col, padx=10, pady=10, sticky="nsew")
-
-        for i, (exercicio, _) in enumerate(lista_exercicios):
-            ttk.Label(lf, text=exercicio).grid(row=i, column=0, padx=5, pady=2, sticky="w")
-
-            ttk.Label(lf, text="REPET").grid(row=i, column=1, padx=5, pady=2, sticky="w")
-            ttk.Entry(lf, width=5).grid(row=i, column=2, padx=5, pady=2)
-
-            ttk.Label(lf, text="SÉRIES").grid(row=i, column=3, padx=5, pady=2, sticky="w")
-            ttk.Entry(lf, width=5).grid(row=i, column=4, padx=5, pady=2)
-
-        col += 1
-        if col == 3:
-            col = 0
-            row_start += 1
 
 
 def create_main_interface():
@@ -233,8 +192,8 @@ def create_main_interface():
 
     ttk.Button(tab1, text="Confirmar Cadastro", command=lambda: novo_cadastro(tab2)).grid(row=8, column=0, padx=10, pady=5, sticky="w")
     ttk.Button(tab1, text="Salvar Dados", command=salvar_dados).grid(row=8, column=1, padx=10, pady=5, sticky="e")
+    ttk.Button(tab1, text="fazer treino", command=salvar_dados).grid(row=8, column=1, padx=10, pady=5, sticky="e")
 
-    criar_ficha_treino(tab1)
 
     app.mainloop()
 
