@@ -146,7 +146,7 @@ app = tk.Tk()
 app.title("Login")
 app.geometry("800x600")
 
-notebook = ttk.Notebook(app)  # Removido bootstyle
+notebook = ttk.Notebook(app)
 notebook.grid(row=0, column=0, columnspan=3, padx=10, pady=10, sticky="nsew")
 
 tab1 = ttk.Frame(notebook)
