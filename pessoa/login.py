@@ -50,10 +50,6 @@ def salvar_dados():
         mensalidade.append("90/MÊS (3 VEZES NA SEMANA)")
     if check2_var.get() == 1:
         mensalidade.append("130/MÊS (5 VEZES NA SEMANA)")
-    if check3_var.get() == 1:
-        mensalidade.append("ESPORTES")
-    if check4_var.get() == 1:
-        mensalidade.append("FILMES")
 
     data_nascimento = data.get_date().strftime("%Y-%m-%d")
     treinos = {}
@@ -91,6 +87,76 @@ def salvar_dados():
         json.dump(dados, f, indent=4, ensure_ascii=False)
 
     print("Dados salvos com sucesso!")
+import json
+import os
+
+def salvar_exercicio():
+    exercicio = entry1.get()
+    series = entry2.get()
+    repeticoes = entry3.get()
+
+    dados_exercicio = {
+        "exercicio": exercicio,
+        "series": series,
+        "repeticoes": repeticoes
+    }
+
+    caminho_arquivo = "dados.json"
+
+    if os.path.exists(caminho_arquivo):
+        with open(caminho_arquivo, "r") as arquivo_json:
+            dados_existentes = json.load(arquivo_json)
+    else:
+        dados_existentes = {}
+
+    if "treinos" not in dados_existentes:
+        dados_existentes["treinos"] = []
+    
+    dados_existentes["treinos"].append(dados_exercicio)
+
+    with open(caminho_arquivo, "w") as arquivo_json:
+        json.dump(dados_existentes, arquivo_json, indent=4)
+
+    entry1.delete(0, 'end')
+    entry2.delete(0, 'end')
+    entry3.delete(0, 'end')
+
+def fazer_treino():
+    global entry1, entry2, entry3
+    segundo_notebook = ttk.Notebook(tab1)
+    segundo_notebook.grid(row=9, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+
+    treino1 = ttk.Frame(segundo_notebook)
+    treino2 = ttk.Frame(segundo_notebook)
+    segundo_notebook.add(treino1, text="Treino 1")
+    segundo_notebook.add(treino2, text="Treino 2")
+
+    texto = ttk.Label(treino1, text="Escreva o nome do exercício, assim que terminar, clique em salvar e escreva o próximo no mesmo campo")
+    texto.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="w")
+
+    frame_input = ttk.Frame(treino1)
+    frame_input.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="w")
+
+    texto1 = ttk.Label(frame_input, text="Exercício")
+    texto1.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+
+    entry1 = ttk.Entry(frame_input)
+    entry1.grid(row=0, column=1, padx=10, pady=10)
+
+    texto2 = ttk.Label(frame_input, text="Séries")
+    texto2.grid(row=0, column=2, padx=10, pady=10, sticky="w")
+
+    entry2 = ttk.Entry(frame_input)
+    entry2.grid(row=0, column=3, padx=10, pady=10)
+
+    texto3 = ttk.Label(frame_input, text="Repetições")
+    texto3.grid(row=0, column=4, padx=10, pady=10, sticky="w")
+
+    entry3 = ttk.Entry(frame_input)
+    entry3.grid(row=0, column=5, padx=10, pady=10)
+
+    botao1 = ttk.Button(frame_input, text="Salvar exercício", command=salvar_exercicio)
+    botao1.grid(row=1, column=0, padx=10, pady=10)
 
 
 def novo_cadastro(tab2):
@@ -98,8 +164,7 @@ def novo_cadastro(tab2):
     labelp.grid(row=12, column=0, columnspan=4, padx=10, pady=5, sticky="w")
 
     nome = entry.get()
-    tab3 = tab3.frame()
-    label1 = ttk.Label(tab3, text="SEU NOME: ")
+    label1 = ttk.Label(tab2, text="SEU NOME: ")
     texto = ttk.Label(tab2, text=nome)
     label1.grid(row=0, column=0, padx=5, pady=5, sticky="w")
     texto.grid(row=0, column=1, padx=5, pady=5)
@@ -147,6 +212,42 @@ def novo_cadastro(tab2):
     label_data.grid(row=0, column=0, padx=5, pady=5, sticky="w")
 
 
+def fazer_treino():
+    global entry, entry1, entry2, data, check1_var, check2_var, treino1, treino2
+    segundo_notebook = ttk.Notebook(tab1)
+    segundo_notebook.grid(row=9, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+
+    treino1 = ttk.Frame(segundo_notebook)
+    treino2 = ttk.Frame(segundo_notebook)
+    segundo_notebook.add(treino1, text="Treino 1")
+    segundo_notebook.add(treino2, text="Treino 2")
+
+    texto = ttk.Label(treino1, text="Escreva o nome do exercício, assim que terminar, clique em salvar e escreva o próximo no mesmo campo")
+    texto.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="w")
+
+    frame_input = ttk.Frame(treino1)
+    frame_input.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="w")
+
+    texto1 = ttk.Label(frame_input, text="Exercício")
+    texto1.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+
+    entry1 = ttk.Entry(frame_input)
+    entry1.grid(row=0, column=1, padx=10, pady=10)
+
+    texto2 = ttk.Label(frame_input, text="Séries")
+    texto2.grid(row=0, column=2, padx=10, pady=10, sticky="w")
+
+    entry2 = ttk.Entry(frame_input)
+    entry2.grid(row=0, column=3, padx=10, pady=10)
+
+    texto3 = ttk.Label(frame_input, text="Repetições")
+    texto3.grid(row=0, column=4, padx=10, pady=10, sticky="w")
+
+    entry3 = ttk.Entry(frame_input)
+    entry3.grid(row=0, column=5, padx=10, pady=10)
+
+    botao1 = ttk.Button(frame_input, text= "salvar excercício", command= salvar_dados)
+    botao1.grid(row=1, column=0, padx=10, pady=10)
 
 
 def create_main_interface():
@@ -178,13 +279,9 @@ def create_main_interface():
 
     check1_var = tk.IntVar()
     check2_var = tk.IntVar()
-    check3_var = tk.IntVar()
-    check4_var = tk.IntVar()
 
     ttk.Checkbutton(tab1, text="90/MÊS (3 VEZES NA SEMANA)", variable=check1_var).grid(row=3, column=0, padx=10, pady=5, sticky="w")
     ttk.Checkbutton(tab1, text="130/MÊS (5 VEZES NA SEMANA)", variable=check2_var).grid(row=4, column=0, padx=10, pady=5, sticky="w")
-    ttk.Checkbutton(tab1, text="ESPORTES", variable=check3_var).grid(row=5, column=0, padx=10, pady=5, sticky="w")
-    ttk.Checkbutton(tab1, text="FILMES", variable=check4_var).grid(row=6, column=0, padx=10, pady=5, sticky="w")
 
     ttk.Label(tab1, text="Data de Nascimento:").grid(row=7, column=0, padx=10, pady=5, sticky="w")
     data = DateEntry(tab1, width=30, date_pattern="dd/mm/yyyy")
@@ -192,7 +289,7 @@ def create_main_interface():
 
     ttk.Button(tab1, text="Confirmar Cadastro", command=lambda: novo_cadastro(tab2)).grid(row=8, column=0, padx=10, pady=5, sticky="w")
     ttk.Button(tab1, text="Salvar Dados", command=salvar_dados).grid(row=8, column=1, padx=10, pady=5, sticky="e")
-    ttk.Button(tab1, text="fazer treino", command=salvar_dados).grid(row=8, column=1, padx=10, pady=5, sticky="e")
+    ttk.Button(tab1, text="fazer treino", command=fazer_treino).grid(row=8, column=2, padx=10, pady=5, sticky="e")
 
 
     app.mainloop()
